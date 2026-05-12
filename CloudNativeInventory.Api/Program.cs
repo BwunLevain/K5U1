@@ -12,9 +12,12 @@ builder.Services.AddOpenApi(); // .NET 9 OpenAPI
 // Använd Managed Identity för att hämta hemligheter i produktion.
 if (builder.Environment.IsProduction())
 {
-    var keyVaultUrl = new Uri(builder.Configuration["KeyVaultUrl"]!);
-    builder.Configuration.AddAzureKeyVault(keyVaultUrl, new DefaultAzureCredential());
- }
+    var keyVaultUrl = builder.Configuration["KeyVaultUrl"];
+    if (!string.IsNullOrEmpty(keyVaultUrl))
+    {
+        builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+    }
+}
 
 // Vi använder InMemory-databas lokalt
 builder.Services.AddDbContext<InventoryDbContext>(options =>
