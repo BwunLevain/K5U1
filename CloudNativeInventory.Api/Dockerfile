@@ -4,11 +4,11 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 WORKDIR /src
 
-COPY ["CloudNativeInventory.Api.csproj", "./"]
-RUN dotnet restore "./CloudNativeInventory.Api.csproj"
+COPY ["CloudNativeInventory.Api/CloudNativeInventory.Api.csproj", "CloudNativeInventory.Api/"]
+RUN dotnet restore "CloudNativeInventory.Api/CloudNativeInventory.Api.csproj"
 
 COPY . .
-RUN dotnet publish "CloudNativeInventory.Api.csproj" -c Release -o /app/publish
+WORKDIR "/src/CloudNativeInventory.Api"
 
 # STAGE 2: RUNTIME (Produktionsmiljön)
 
