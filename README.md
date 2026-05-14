@@ -88,7 +88,7 @@ Verifieringen utförs automatiskt i `Program.cs` genom en anpassad `HealthCheck`
 
 Besluten bakom lösningen finns dokumenterade i mappen `CloudNativeInventory.Api/Docs/Adr/`. Här motiveras val kring infrastruktur, säkerhet och automatisering.
 
-* [ADR 0001: Val av Azure Compute (Container Apps)](https://www.google.com/search?q=CloudNativeInventory.Api/Docs/Adr/0001-val-av-azure-compute.md) - Motivering kring skalbarhet och kostnad.
-* [ADR 0002: Säker konfigurationshantering](https://www.google.com/search?q=CloudNativeInventory.Api/Docs/Adr/0002-saker-konfigurationshantering.md) - Hur vi eliminerar hemligheter i kod med Key Vault och Managed Identity.
-* [ADR 0003: Automatisering av deploy (CI/CD)]() - Strategi för att minska mänskliga fel.
-* [ADR 0004: Container-härdning (Chiseled Images)]() - Hur vi minskar attackytan genom att köra rootless och minimala images.
+* [ADR 0001: Val av Azure Compute (Container Apps)](https://github.com/BwunLevain/K5U1/blob/master/CloudNativeInventory.Api/Docs/Adr/0001-val-av-azure-compute.md) - Motivering kring skalbarhet och kostnad.
+* [ADR 0002: Säker konfigurationshantering](https://github.com/BwunLevain/K5U1/blob/master/CloudNativeInventory.Api/Docs/Adr/0002-saker-konfigurationshantering.md) - Hur vi eliminerar hemligheter i kod med Key Vault och Managed Identity.
+* [ADR 0003: Automatisering av deploy (CI/CD)](https://github.com/BwunLevain/K5U1/blob/master/CloudNativeInventory.Api/Docs/Adr/0003-automatisering-av-deploy-cicd.md) - Strategi för att minska mänskliga fel.
+* [ADR 0004: Container-härdning (Chiseled Images)](https://github.com/BwunLevain/K5U1/blob/master/CloudNativeInventory.Api/Docs/Adr/0004-cotainer-hardning-chiseled-images.md) - Hur vi minskar attackytan genom att köra rootless och minimala images.
