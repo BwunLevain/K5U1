@@ -2,7 +2,7 @@ services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "YourPasswordHere123!"
+      SA_PASSWORD: ${SQL_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
@@ -11,13 +11,14 @@ services:
 
   api:
     build:
-      context: ./CloudNativeInventory.Api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: CloudNativeInventory.Api/Dockerfile
     ports:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=CloudNativeInventory;User Id=sa;Password=YourPasswordHere123!;TrustServerCertificate=true
+      - ConnectionStrings__DefaultConnection=Server=db;Database=CloudNativeInventory;User Id=sa;Password=${SQL_PASSWORD};TrustServerCertificate=true
+      - ExternalServices__VendorApiKey=${VENDOR_API_KEY}
     depends_on:
       - db
 
