@@ -1,7 +1,9 @@
-name: .NET CD
+name: CloudNative CI/CD
 
 on:
   push:
+    branches: [ "master" ]
+  pull_request:
     branches: [ "master" ]
 
 permissions:
@@ -9,7 +11,31 @@ permissions:
   contents: read
 
 jobs:
+  # JOBB 1: Kvalitetskontroll (CI)
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+        cache: true
+        cache-dependency-path: '**/*.csproj'
+        
+    - name: Restore & Build
+      run: |
+        dotnet restore
+        dotnet build --configuration Release --no-restore
+        
+    - name: Run Tests
+      run: dotnet test --configuration Release --no-build --verbosity normal
+
+  # JOBB 2: Driftsättning (CD) - Startar bara om testerna går igenom
   deploy:
+    needs: [build-and-test]
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
