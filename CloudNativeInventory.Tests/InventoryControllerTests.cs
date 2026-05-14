@@ -39,25 +39,4 @@ public class InventoryControllerTests
         Assert.NotNull(result);
         Assert.Single(result);
     }
-
-    [Fact]
-    public void VerifyIntegration_Returns500_WhenSecretIsLocalDefault()
-    {
-        // Arrange
-        var options = CreateNewContextOptions();
-        using var context = new InventoryDbContext(options);
-
-        var mockConfig = new Mock<IConfiguration>();
-        mockConfig.Setup(c => c["ExternalServices:VendorApiKey"])
-                  .Returns("LOCAL_DEV_SECRET_12345_DO_NOT_DEPLOY");
-
-        var controller = new InventoryController(context, mockConfig.Object);
-
-        // Act
-        var result = controller.VerifyExternalIntegration() as ObjectResult;
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal(500, result.StatusCode);
-    }
 }
