@@ -1,31 +1,29 @@
 ## ADR 0001-val-av-azure-compute
 
-Vi är ett nystartat DevOps-team. Vårt uppdrag är att flytta ett äldre system till molnet. Systemet kommer att brytas ner till 3 mikrotjänster och måste klara av tunga trafiktoppar runt löning, för att därefter ha nästan noll trafik på helgerna.
+Vivienne fick som uppdrag att flytta ett äldre system till molnet.
 
 ## Metadata
 
 - Datum: 2026-05-04
 - Status: Accepterat
-- Beslutsfattare: DevOps-teamet
+- Beslutsfattare: Vivienne Bengtsson
 - Relaterat (länk till ticket/issue/spike):
 
 ## Kontext (problemet som ska lösas)
 
-- Vi vill flytta ett äldre system till molnet.
-- Systemet kommer att brytas ner till 3 mikrotjänster.
-- Systemet måste klara av tunga trafiktoppar runt löning.
-- Systemet måste ha nästan noll trafik på helgerna.
+- Flytta ett äldre system till molnet.
+- Systemet måste kunna klara av varierande trafikmönster.
 
-## Beslut (vad vi gör)
+## Beslut
 
-- Vi väljer att använda Azure Container Apps för att köra våra mikrotjänster. Detta ger oss möjlighet att enkelt skala upp och ner baserat på trafik, vilket är viktigt för att hantera de tunga trafiktopparna runt löning och den låga trafiken på helgerna.
+- Jag väljer att använda Azure Container Apps för att köra våra mikrotjänster. Detta ger oss möjlighet att enkelt skala upp och ner baserat på trafik, vilket är viktigt för att hantera de tunga trafiktopparna runt löning och den låga trafiken på helgerna.
 
 ## Alternativ som utvärderades
 
 1. Azure App Service
 2. Azure Container Apps
 
-För varje alternativ, skriv kort:
+## Alternativ som utvärderades
 
 1. Azure App Service
 	- Fördelar 
@@ -54,6 +52,6 @@ För varje alternativ, skriv kort:
 - Kostnad: Dynamisk kostnad baserat på trafik, potentiellt lägre kostnader under lågtrafikperioder.
 - Teamkonsekvenser: Kräver att teamet lär sig och anpassar sig till en ny plattform, vilket kan innebära en inlärningskurva.
 
-## Uppföljning (hur vet vi att beslutet var bra?)
+## Uppföljning
 
-- Vi kommer att utvärdera efter första sprinten: deploytid, incidenter, kostnad och developer experience.
+- Ej testad än
