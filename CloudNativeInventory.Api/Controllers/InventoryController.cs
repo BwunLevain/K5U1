@@ -23,18 +23,4 @@ public class InventoryController : ControllerBase
     {
         return await _context.Products.ToListAsync();
     }
-
-    // Denna endpoint används för att bevisa att appen framgångsrikt har hämtat den hemliga integrationsnyckeln (från Azure Key Vault i prod)
-    [HttpGet("system/verify-integration")]
-    public IActionResult VerifyExternalIntegration()
-    {
-        var apiKey = _configuration["ExternalServices:VendorApiKey"];
-
-        if (string.IsNullOrEmpty(apiKey) || apiKey == "LOCAL_DEV_SECRET_12345_DO_NOT_DEPLOY")
-        {
-            return StatusCode(500, new { Status = "Unsecured", Message = "Körs med lokal (eller saknad) hemlighet!" });
-        }
-
-        return Ok(new { Status = "Secured", Message = "Hemlighet laddades framgångsrikt via säker konfiguration." });
-    }
 }

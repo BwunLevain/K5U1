@@ -8,6 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi(); // .NET 9 OpenAPI
 
+builder.Services.AddHealthChecks()
+    .AddCheck("KeyVaultCheck", () =>
+    {
+        var apiKey = builder.Configuration["ExternalServices:VendorApiKey"];
+
+        if (string.IsNullOrEmpty(apiKey) || apiKey == "LOCAL_DEV_SECRET_12345_DO_NOT_DEPLOY")
+        {
+            return Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Unhealthy("API Key is missing or insecure");
+        }
+
+        return Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy("API Key is secure");
+    });
+
 //TODO(Del 4 i "Tips och förslag"): Konfigurera Azure Key Vault
 // Använd Managed Identity för att hämta hemligheter i produktion.
 if (builder.Environment.IsProduction())
@@ -19,11 +32,15 @@ if (builder.Environment.IsProduction())
     }
 }
 
+
+
 // Vi använder InMemory-databas lokalt
 builder.Services.AddDbContext<InventoryDbContext>(options =>
     options.UseInMemoryDatabase("InventoryDb"));
 
 var app = builder.Build();
+
+app.MapHealthChecks("/health");
 
 if (app.Environment.IsDevelopment())
 {
